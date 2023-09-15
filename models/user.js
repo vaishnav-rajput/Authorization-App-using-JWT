@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -20,3 +20,5 @@ const userSchema = mongoose.Schema({
         enum: ["Admin", "Student", "Visitor"] //using enum means it will only accept the value within these three values
     }
 })
+
+module.exports = mongoose.model("user", userSchema)
