@@ -46,3 +46,21 @@ exports.signup = async(req,res) => {
         })
     }
 }
+
+
+//login handler
+exports.login = async(req, res) => {
+    try {
+        //data fetch
+        const {email, password} = req.body
+
+        if(!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "please fill all the details"
+            })
+        }
+    } catch (error) {
+        
+    }
+}
