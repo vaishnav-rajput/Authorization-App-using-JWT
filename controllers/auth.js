@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt")
 const User = require("../models/user");
+const jwt = require("jsonwebtoken")
 
+require("dotenv").config()
 
 //signup route handler
 exports.signup = async(req,res) => {
@@ -62,7 +64,36 @@ exports.login = async(req, res) => {
 
         //check for registered user
         const user = await User.findOne({email})
+
+        //if not a registered user
+        if(!user){
+            return res.status(401).json({
+                success: false,
+                message: "user is not registered"
+            })
+        }
+
+        const payload = {
+            email:user.email,
+            id: user._id,
+            role: user.role
+        }
         
+        //verify password and generate a JWT token
+        if(await bcrypt.compare(password, user.password)){
+            //password match
+            let token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: "2h",})
+
+  
+        }else{
+            //password do not match
+            return res.status(403).json({
+                success: false,
+                message: "password incorrect"
+            })
+        }
+
+
     } catch (error) {
         
     }
