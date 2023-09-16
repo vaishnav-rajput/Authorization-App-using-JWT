@@ -63,7 +63,7 @@ exports.login = async(req, res) => {
         }
 
         //check for registered user
-        const user = await User.findOne({email})
+        let user = await User.findOne({email})
 
         //if not a registered user
         if(!user){
@@ -83,6 +83,7 @@ exports.login = async(req, res) => {
         if(await bcrypt.compare(password, user.password)){
             //password match
             let token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: "2h",})
+            user = user.toObject()
             user.token = token;
             user.password = undefined
 
