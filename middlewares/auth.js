@@ -6,7 +6,7 @@ require("dotenv").config()
 exports.auth = (req, res, next) => { //here next is passed so the middleware can move to the next method i.e. isStudent, isAdmin
     try {
         //extract JWT token
-        const token = req.body.token 
+        const token = req.cookies.token || req.body.token || req.header("Authorization").replace("Bearer ", "")
 
         if(!token){
             return res.status(401).json({
@@ -15,7 +15,7 @@ exports.auth = (req, res, next) => { //here next is passed so the middleware can
             })
         }
 
-        //verify the token
+        //verify the token 
         try{
             const payload = jwt.verify(token, process.env.JWT_SECRET)
             console.log(payload)
