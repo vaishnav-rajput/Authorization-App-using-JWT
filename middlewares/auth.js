@@ -46,6 +46,26 @@ exports.isStudent = (req,res,next) => {
         }
         next()
     } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "user role is not matching"
+        })
+    }
+}
 
+exports.isAdmin = (req, res, next)  => {
+    try{
+        if(req.user.role !== "Admin"){
+            return res.status(401).json({
+                success: "false",
+                message: "this is a protected route for Admin "
+            })
+        }
+        next()
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "user role is not matching"
+        })
     }
 }
