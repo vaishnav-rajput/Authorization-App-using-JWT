@@ -8,6 +8,7 @@ router.post("/login", login)
 router.post("/signup", signup)
 
 
+
 //protected route
 router.get("/student", auth, isStudent, (req,res) => {
     res.json({
