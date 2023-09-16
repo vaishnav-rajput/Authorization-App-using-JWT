@@ -6,6 +6,10 @@ require("dotenv").config()
 exports.auth = (req, res, next) => { //here next is passed so the middleware can move to the next method i.e. isStudent, isAdmin
     try {
         //extract JWT token
+        
+        console.log("cookie", req.cookies.token) 
+        console.log("body", req.body.token)
+         
         const token = req.cookies.token || req.body.token || req.header("Authorization").replace("Bearer ", "")
 
         if(!token){
