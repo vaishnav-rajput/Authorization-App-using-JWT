@@ -1,6 +1,5 @@
 const bcrypt = require("bcrypt")
 const User = require("../models/user");
-const user = require("../models/user");
 
 
 //signup route handler
@@ -60,6 +59,10 @@ exports.login = async(req, res) => {
                 message: "please fill all the details"
             })
         }
+
+        //check for registered user
+        const user = await User.findOne({email})
+        
     } catch (error) {
         
     }
