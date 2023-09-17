@@ -34,7 +34,7 @@ router.get("/admin", auth, isAdmin, (req, res) => {
 router.get("/getEmail", auth, async (req, res) => {
     try {
         const id = req.user.id;
-        const user = await User.findOne({id})
+        const user = await User.findById(id)
 
         res.status(200).json({
             success: true,
