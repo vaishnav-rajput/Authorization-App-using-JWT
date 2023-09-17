@@ -12,7 +12,7 @@ exports.auth = (req, res, next) => { //here next is passed so the middleware can
          
         const token = req.cookies.token ||  req.body.token || req.header("Authorization").replace("Bearer ", "")
 
-        if(!token){
+        if(!token || token === undefined){
             return res.status(401).json({
                 success: false,
                 message: "token missing"
